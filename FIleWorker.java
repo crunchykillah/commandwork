@@ -12,8 +12,8 @@ public class FileWorker{
         }
         return str;
 
-    }
-  public String readEdit(){
+   }
+   public String readEdit(){
         if (fileReader("kniga1.txt") != null){
             String resultString;
             resultString = fileReader("kniga1.txt").replaceAll("\\n\\r|\\r|\\n|\\s| ", "_");
@@ -24,4 +24,17 @@ public class FileWorker{
             return resultString;
         }
         return "строки не существует";
+    }
+    public String[] readSplit() {
+
+        splitted = readEdit().split("_");
+        Arrays.sort(splitted);
+        return splitted;
+
+    }
+
+    public int lengthCounter() {
+        int counter;
+        counter = readSplit().length;
+        return counter;
     }
