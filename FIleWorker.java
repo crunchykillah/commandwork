@@ -3,6 +3,9 @@ import java.nio.file.Files;
 import java.nio.file.Path;
 import java.util.*;
 public class FileWorker{
+  private String str;
+  private String[] splitted;
+  public static Map<String, Integer> wordMap = new HashMap<>();
   public String fileReader(String fileName) {
 
         try {
@@ -59,6 +62,42 @@ public class FileWorker{
         counter = removeDuplicates().length;
         return counter;
     }
+   public int wordCounter() {
+
+        for (String word : splitted) {
+            if (wordMap.containsKey(word)) {
+                wordMap.put(word, wordMap.get(word) + 1);
+            }
+
+            else wordMap.put(word, 1);
+        }
+        return wordMap.size();
+    }
+
+    public static Map<String, Integer> getWordMap() {
+        return wordMap;
+    }
+
+    public static String PopularWordsSearcher(Map<String, Integer> wordMap) {
+
+        for (int i = 0; i < 100; i++) {
+            int maxim = (Collections.max(wordMap.values()));
+            Iterator<Map.Entry<String, Integer>> iter = wordMap.entrySet().iterator();
+
+            while (iter.hasNext()) {
+                    Map.Entry<String, Integer> entry = iter.next();
+
+                if (maxim == entry.getValue()) {
+                    System.out.println(entry.getKey() + " " + maxim);
+                    iter.remove();
+                }
+            }
+        }
+        return "наконец-то готово";
+    }
+
+}
+  
 
   
   
