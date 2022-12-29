@@ -15,9 +15,19 @@ public class FileWorker{
         }
         return str;
 
-   }
-   public String readEdit(){
-        if (fileReader("kniga1.txt") != null){
+  }
+  public void answersPrint() throws IOException {
+        removeDuplicates();
+        System.out.println("кол-во всех слов в тексте = " + lengthCounter());
+        System.out.println("кол-во уникальных слов = " + lengthCounterAfterRemove());
+        wordCounter();
+        PopularWordsSearcher(getWordMap());
+
+
+  }
+
+  public String readEdit(){
+       if (fileReader("kniga1.txt") != null){
             String resultString;
             resultString = fileReader("kniga1.txt").replaceAll("\\n\\r|\\r|\\n|\\s| ", "_");
             resultString = resultString.replaceAll("[^(A-Za-zА-Яа-я|_) ]", "");
@@ -27,20 +37,20 @@ public class FileWorker{
             return resultString;
         }
         return "строки не существует";
-    }
-    public String[] readSplit() {
+  }
+  public String[] readSplit() {
 
         splitted = readEdit().split("_");
         Arrays.sort(splitted);
         return splitted;
 
-    }
-    public int lengthCounter() {
+  }
+  public int lengthCounter() {
         int counter;
         counter = readSplit().length;
         return counter;
-    }
-    public String[] removeDuplicates(){
+  }
+  public String[] removeDuplicates(){
         HashSet<String> set;
         set = new HashSet<>();
         final int len = readSplit().length;
@@ -56,12 +66,12 @@ public class FileWorker{
         }
         return whitelist;
 
-    } 
-    public int lengthCounterAfterRemove() {
+   } 
+   public int lengthCounterAfterRemove() {
         int counter;
         counter = removeDuplicates().length;
         return counter;
-    }
+   }
    public int wordCounter() {
 
         for (String word : splitted) {
@@ -72,28 +82,28 @@ public class FileWorker{
             else wordMap.put(word, 1);
         }
         return wordMap.size();
-    }
+   }
 
-    public static Map<String, Integer> getWordMap() {
-        return wordMap;
-    }
+   public static Map<String, Integer> getWordMap() {
+       return wordMap;
+   }
 
-    public static String PopularWordsSearcher(Map<String, Integer> wordMap) {
+   public static String PopularWordsSearcher(Map<String, Integer> wordMap) {
 
-        for (int i = 0; i < 100; i++) {
-            int maxim = (Collections.max(wordMap.values()));
-            Iterator<Map.Entry<String, Integer>> iter = wordMap.entrySet().iterator();
+       for (int i = 0; i < 100; i++) {
+           int maxim = (Collections.max(wordMap.values()));
+           Iterator<Map.Entry<String, Integer>> iter = wordMap.entrySet().iterator();
 
-            while (iter.hasNext()) {
-                    Map.Entry<String, Integer> entry = iter.next();
+           while (iter.hasNext()) {
+                   Map.Entry<String, Integer> entry = iter.next();
 
-                if (maxim == entry.getValue()) {
-                    System.out.println(entry.getKey() + " " + maxim);
-                    iter.remove();
-                }
-            }
-        }
-        return "наконец-то готово";
+               if (maxim == entry.getValue()) {
+                   System.out.println(entry.getKey() + " " + maxim);
+                   iter.remove();
+               }
+           }
+       }
+       return "наконец-то готово";
     }
 
 }
