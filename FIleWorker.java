@@ -32,9 +32,28 @@ public class FileWorker{
         return splitted;
 
     }
-
     public int lengthCounter() {
         int counter;
         counter = readSplit().length;
         return counter;
     }
+    public String[] removeDuplicates(){
+        HashSet<String> set;
+        set = new HashSet<>();
+        final int len = readSplit().length;
+
+        for(int i = 0; i < len; i++){
+            set.add(splitted[i]);
+        }
+
+        String[] whitelist = new String[set.size()];
+        int i = 0;
+        for (Iterator<String> it = set.iterator(); it.hasNext();) {
+            whitelist[i++] = it.next();
+        }
+        return whitelist;
+
+    }  
+  
+  
+  
