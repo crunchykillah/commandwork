@@ -53,7 +53,13 @@ public class FileWorker{
         }
         return whitelist;
 
-    }  
+    } 
+    public int lengthCounterAfterRemove() {
+        int counter;
+        counter = removeDuplicates().length;
+        return counter;
+    }
+
   
   
   
